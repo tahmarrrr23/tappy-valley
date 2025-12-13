@@ -7,7 +7,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${globalFont.className} antialiased`}>
+    <html
+      lang="en"
+      data-theme="lofi"
+      className={`${globalFont.className} antialiased`}
+    >
       <body>{children}</body>
     </html>
   );
