@@ -9,7 +9,14 @@ const DEVICE: Device = {
   ppi: 460,
 };
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const url = searchParams.get("url");
+
+  if (!url) {
+    return Response.json({ error: "URL is required" }, { status: 400 });
+  }
+
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -20,10 +27,12 @@ export async function GET() {
     deviceScaleFactor: DEVICE.scaleFactor,
     isMobile: true,
   });
-  await adapter.page.goto("https://example.com/");
+  await adapter.page.goto(url);
 
   const tappy = new Tappy(adapter);
   const result = await tappy.analyze(DEVICE);
+
+  await browser.close();
 
   return Response.json(result);
 }
