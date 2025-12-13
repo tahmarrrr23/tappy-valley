@@ -13,10 +13,12 @@ const DEVICE: Device = {
 };
 
 async function getBrowser() {
-  if (REMOTE_PATH) {
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return await puppeteer.launch({
       args: chromium.args,
-      executablePath: await chromium.executablePath(REMOTE_PATH),
+      executablePath: await chromium.executablePath(
+        `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}/chromium-pack.tar`,
+      ),
     });
   } else {
     return await puppeteer.launch({
