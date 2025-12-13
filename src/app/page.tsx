@@ -1,5 +1,9 @@
+import { MonoCard } from "@/components/mono-card";
+
 export default function Home() {
   return (
-    <h1 className="text-3xl font-bold underline h-screen">tappy-valley</h1>
+    <div className="p-8">
+      <MonoCard className="p-8">Tappy Valley</MonoCard>
+    </div>
   );
 }
