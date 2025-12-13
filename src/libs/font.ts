@@ -1,6 +1,6 @@
-import { Quicksand } from 'next/font/google'
+import { Quicksand } from "next/font/google";
 
 export const globalFont = Quicksand({
-    subsets: ['latin'],
-    variable: '--font-quicksand',
-})
+  subsets: ["latin"],
+  variable: "--font-quicksand",
+});
