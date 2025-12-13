@@ -1,6 +1,9 @@
 import { type Device, Tappy } from "@lycorp-jp/tappy";
 import { PuppeteerAdapter } from "@lycorp-jp/tappy/adapters";
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium-min";
+import puppeteer from "puppeteer-core";
+
+const REMOTE_PATH = process.env.CHROMIUM_REMOTE_EXEC_PATH;
 
 const DEVICE: Device = {
   width: 390,
@@ -8,6 +11,19 @@ const DEVICE: Device = {
   scaleFactor: 3,
   ppi: 460,
 };
+
+async function getBrowser() {
+  if (REMOTE_PATH) {
+    return await puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(REMOTE_PATH),
+    });
+  } else {
+    return await puppeteer.launch({
+      channel: "chrome",
+    });
+  }
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -17,7 +33,7 @@ export async function GET(request: Request) {
     return Response.json({ error: "URL is required" }, { status: 400 });
   }
 
-  const browser = await puppeteer.launch();
+  const browser = await getBrowser();
   const page = await browser.newPage();
 
   const adapter = new PuppeteerAdapter(page);
