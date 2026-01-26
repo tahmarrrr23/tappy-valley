@@ -57,7 +57,7 @@ export default function Home() {
         <h1 className="text-5xl font-bold tracking-tighter">Tappy Valley_</h1>
         <div className="flex gap-4">
           <a
-            href="https://github.com/tahmarrrr23/tappy-valley"
+            href="https://github.com/tahmarrrr23/tappval"
             className="link link-hover join font-bold"
             target="_blank"
             rel="noopener"

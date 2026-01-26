@@ -1,5 +1,5 @@
 {
-  "name": "tappy-valley",
+  "name": "tappval",
   "private": true,
   "scripts": {
     "build": "next build --webpack",
